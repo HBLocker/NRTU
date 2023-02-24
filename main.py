@@ -1,8 +1,8 @@
 import random
 
 # Set the parameters for NTRU
-n = 503
-q = 2048
+n = 701
+q = 8192
 p = 3
 
 # Generate the public and secret keys
