@@ -6,20 +6,26 @@ q = 2048
 p = 3
 
 # Generate the public and secret keys
+# Generate the public and secret keys
 def generate_keys():
 
     f = [0] * n
     g = [0] * n
     while True:
-        f = [random.randint(-1, 1) for i in range(n)]
-        g = [random.randint(-1, 1) for i in range(n)]
+        # Generate random ternary polynomials f and g
+        f = [random.choice([-1, 0, 1]) for i in range(n)]
+        g = [random.choice([-1, 0, 1]) for i in range(n)]
+        
+        # Check that gcd(poly_eval(f, 1), q) = 1 and gcd(poly_eval(g, 1), q) = 1
         if gcd(poly_eval(f, 1), q) == 1 and gcd(poly_eval(g, 1), q) == 1:
             break
+    
+    # Compute the public and secret keys
     h = poly_mul(f, g)
     h = poly_mod(h, q)
     public_key = poly_mul(h, poly_random(n, p))
     secret_key = g
-    print(public_key)
+    
     return public_key, secret_key
 
 # Encrypt a message
@@ -92,6 +98,13 @@ def poly_random(degree, modulus):
 def poly_mod(p, modulus):
     return [pi % modulus for pi in p]
 
-# Testing 
+
+
 public_key, secret_key = generate_keys()
 message = "This is a test, 123!__?"
+#ciphertext = encrypt(message, public_key)
+#plaintext = decrypt(ciphertext, secret_key)
+print("Public key:", public_key)
+print("Secret key:", secret_key)
+
+#print("Ciphertext:", ciphertext)
